@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+    rel="stylesheet">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <style>
+      .modal-header {background-color:#428bca; color: white; font-weight: bold}
+       
+.announcement-heading {
+  font-size: 50px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}
+      .btn-input {
+   display: block;
+}
+ 
+.btn-input .btn.form-control {
+    text-align: left;
+}
+ 
+.btn-input .btn.form-control span:first-child {
+   left: 10px;
+   overflow: hidden;
+   position: absolute;
+   right: 25px;
+}
+ 
+.btn-input .btn.form-control .caret {
+   margin-top: -1px;
+   position: absolute;
+   right: 10px;
+   top: 50%;
+}
+    </style>
+  </head>
+  
+  <body>
+    <div class="navbar navbar-default navbar-static-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <a type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></a>
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <a class="navbar-brand" href="#">Hangerworld Support</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse" style="padding-top:10px">
+          <ul class="nav navbar-nav navbar-right">
+            <a class="active btn btn-block btn-primary btn-sm" draggable="true" data-toggle="modal"
+            data-target="login"><span class="glyphicon glyphicon-log-in" draggable="true">&nbsp;</span>Log in</a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <h1 class="page-header pull-left">Dashboard</h1>
+            <span class="pull-left" style="margin-top:60px; margin-left:15px">Smaller text</span>
+          </div>
+          <div class="col-md-3">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-check" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading">1</p>
+                    <p class="announcement-text">Resolved</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="glyphicon glyphicon-edit" style="font-size:5em;"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading" draggable="true">1</p>
+                    <p class="announcement-text">Open Tickets</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="fixed-table-toolbar">
+              <a href="#" class="active btn btn-primary pull-left" style="margin-top:10px"
+              data-toggle="modal" data-target="newticket" id="new-ticket-btn"><span class="glyphicon glyphicon-pencil"></span> New Ticket</a>
+              <div class="btn-group btn-group-sm columns columns-right pull-right" style="margin: 10px;">
+                <button class="active btn btn-info btn-sm" type="button" name="refresh"
+                title="Refresh" id="refresh" style="margin: 5px;">
+                  <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+                </button>
+                <div class="pull-right search">
+                  <input class="form-control" type="text" placeholder="Search">
+                </div>
+              </div>
+              <table class="table table-hover table-striped" style="" data-search="true"
+              data-select-item-name="toolbar1">
+                <thead>
+                  <tr>
+                    <th class="info col-md-1" draggable="true">Ticket #</th>
+                    <th class="info col-md-5">Title</th>
+                    <th class="info col-md-3">Name</th>
+                    <th class="info col-md-2" data-sortable="true">Date</th>
+                    <th class="info col-md-1" data-sortable="true">Priority</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $( document.body ).on( 'click', '.dropdown-menu li', function( event ) {
+     
+       var $target = $( event.currentTarget );
+     
+       $target.closest( '.btn-group' )
+          .find( '[data-bind="label"]' ).text( $target.text() )
+             .end()
+          .children( '.dropdown-toggle' ).dropdown( 'toggle' );
+     
+       return false;
+     
+    });
+    </script>
+  </body>
+
+</html>
