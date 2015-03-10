@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['notes'])) {
+if (isset($_POST['notes']) && $_POST['notes'] <> "") {
 	include 'PDO.php'; 
 	$note = strip_tags($_POST['notes']);
 	$name = strip_tags($_POST['name']);

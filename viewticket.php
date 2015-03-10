@@ -21,16 +21,19 @@
 		$sth->execute();
 	 	if($row = $sth-> fetch()){
 		 ?>
-      <h1 class="page-header pull-left">
-        <span class="text-muted">#<?=$row['tkt_id']?></span> - <?=$row['tkt_title']?>
+      <h1 class="page-header pull-left"> <span class="text-muted">#
+        <?=$row['tkt_id']?>
+        </span> -
+        <?=$row['tkt_title']?>
         &nbsp;&nbsp;<small>
         <?=$row['rname']?>
         &nbsp; -
         <?=$row['tkt_dept']?>
         </Small></h1>
-      <div class="pull-right panel panel-<?=$statusclr?>">
+<?php $tktstatus = parse_status($row['tkt_status']);  ?>
+      <div class="pull-right panel panel-<?=$tktstatus[1]?>">
         <div class="panel-heading">
-          <?=$statustxt?>
+          <?=$tktstatus[0]?>
         </div>
       </div>
     </div>
@@ -45,80 +48,76 @@
             <?php reverse_date($row['tkt_created'])?>
             </small></h3>
         </div>
-      <div class="panel-body">
-          <p><?=$row['tkt_description']?>   
-        </p>
+        <div class="panel-body">
+          <p>
+            <?=$row['tkt_description']?>
+          </p>
         </div>
-        <div class="panel-footer"><Small>Last Updated: <?=$row['tkt_lastmod']?>
+        <div class="panel-footer"><Small>Last Updated:
+          <?=$row['tkt_lastmod']?>
           </Small></div>
       </div>
-      
-      
-        <?php if(($row['username'] == $_SESSION['user']) || ($isadmin)){ ?>
-    <div class="panel panel-warning">
-      <div class="panel-heading">
-        <h3 class="panel-title">Tools</h3>
-      </div>
-      <div class="panel-body">
-        <form class="form-horizontal" role="form" id="tools" method="POST">
-          <?php 
+
+
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Notes</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" role="form" id="updatenotes">
+        <div class="col-md-12">
+          <label for="notes" class="control-label">Add Notes for this ticket</label>
+        </div>
+        <div class="col-md-10">
+          <textarea rows="2" id="notes" name="notes" class="form-control"></textarea>
+          <input type="hidden" name="name" value="<?=$_SESSION['name'];?>" />
+          <input type="hidden" name="id" value="<?=$row['tkt_id'];?>" />
+        </div>
+        <div class="col-md-2"> <a class="btn btn-info" id="addnotebtn">Add note</a> </div>
+        <div id="updatenotesuccess" style="display: none">
+          <h4 class="text-center text-success">Note added</h4>
+        </div>
+      </form>
+      <div id="notestable"> </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title">Tools</h3>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" id="tools" method="POST">
+            <?php 
 			$sth = $db->prepare('select * from tkt_status'); 
 			$sth->execute();
 			?>
-          <div class="form-group updategroup" id="updategroup">
-    	      <div class="col-md-3">
-        	    <label for="status" class="control-label">Close the ticket?</label>
-	          </div>
-	          <div class="col-md-3">
-          <?php $status = parse_status($row['tkt_status'])?>
-          <select class="form-control" id="status" name="status">
-            <option>
-            <?=$status[0]?>
-            </option>
-            <?php  while ($strow = $sth->fetch()){  ?>
-            <option value="<?=$strow['status_code']?>">
-            <?=$strow['status_desc']?>
-            </option>
-            <?php } ?>
-          </select>
-          <input type="hidden" name="id" value="<?=$row['tkt_id']?>"/>
-        </form>
-    	  </div>
-      	  <div class="col-md-2"><a class="btn btn-warning btn-md" id="updatebtn"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
-	  	  <div class="col-md-4"></div>
-	    </div>
-    	<div id="updategroupsuccess" style="display: none;">
-	      	<h4 class="text-center text-success">Ticket updated</h4>
-	    </div>
-	  </div>
-	</div>
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title">Notes</h3>
+            <div class="form-group updategroup" id="updategroup">
+            <div class="col-md-12">
+              <label for="status" class="control-label">Change Status?</label>
+            </div>
+            <div class="col-md-6">
+            <?php $status = parse_status($row['tkt_status'])?>
+            <select class="form-control" id="status" name="status">
+              <?php  while ($strow = $sth->fetch()){  ?>
+              <option value="<?=$strow['status_code']?>">
+              <?=$strow['status_desc']?>
+              </option>
+              <?php } ?>
+            </select>
+            <input type="hidden" name="id" value="<?=$row['tkt_id']?>"/>
+          </form>
         </div>
-        <div class="panel-body">
-        <form class="form-horizontal" role="form" id="updatenotes">
-          <div class="col-md-12">
-            <label for="notes" class="control-label">Add Notes for this ticket</label>
-          </div>
-          <div class="col-md-10">
-            <textarea rows="2" id="notes" name="notes" class="form-control"></textarea>
-      <input type="hidden" name="name" value="<?=$_SESSION['user'];?>" />
-      <input type="hidden" name="id" value="<?=$row['tkt_id'];?>" />
-		  </div>
-          <div class="col-md-2">  
-            <a class="btn btn-info" id="addnotebtn">Add note</a>
-          </div>
-   
-          <div id="updatenotesuccess" style="display: none"> <h4 class="text-center text-success">Note added</h4></div>
-        </form>         
-      	<div id="notestable">		
-        </div>
+        <div class="col-md-6"><a class="btn btn-warning btn-md" id="updatebtn"><span class="glyphicon glyphicon-chevron-right"></span></a></div>
+        
       </div>
-  </div> 
-</div>
-<?php } ?>
-<div class="col-md-4">
+      <div id="updategroupsuccess" style="display: none;">
+        <h4 class="text-center text-success">Ticket updated</h4>
+      </div>
+    </div>
+  </div>
   <div class="panel panel-success">
     <div class="panel-heading">
       <h3 class="panel-title">Discuss</h3>
@@ -155,7 +154,7 @@ $db = null; ?>
     	success: function(){
      		    $("#updategroup").hide();
 				$("#updategroupsuccess").show();
-				        		
+				location.reload();
 		},
 		 error: function(){	
 				alert("An error occurred: " & result.errorMessage);
@@ -167,7 +166,7 @@ $db = null; ?>
     	type: "POST",
 		url: "assets/php/addnote.php",
 		data: $('#updatenotes').serialize(),	
-    	success: function(){
+    	success: function(){				
 				$("#updatenotessuccess").show();
 				$("#updatenotessuccess").delay(3000).fadeOut('slow');	
 				$("#notes").val('');			     

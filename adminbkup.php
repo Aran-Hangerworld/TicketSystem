@@ -106,20 +106,16 @@
                     <div class="col-sm-2">
                       <label for="username" class="control-label"> Username</label>
                     </div>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="username" id="username">
                     </div>
-                        <div class="col-sm-1">
-      						<div id="usersuccess"><span class="glyphicon glyphicon-ok success">&nbsp;</span> </div>
-     						 <div id="userfailure"><span class="glyphicon glyphicon-remove failure">&nbsp;</span></div>
-   					    </div>
-                    </div>
+                  </div>
                   <div class="form-group">
                     <div class="col-sm-2">
                       <label for="name" class="control-label">Name</label>
                     </div>
                     <div class="col-sm-10">
-                      <input type="text"  class="form-control" name="name" id="name" placeholder="Name">
+                      <input type="text"  class="form-control" name="name" id="name">
                     </div>
                   </div>
                   <div class="form-group">
@@ -127,7 +123,7 @@
                       <label for="email" class="control-label">Email</label>
                     </div>
                     <div class="col-sm-10">
-                      <input type="text"  class="form-control" name="addusremail" id="addusremail" placeholder="Email">
+                      <input type="text"  class="form-control" name="addusremail" id="addusremail">
                     </div>
                   </div>
                   <?php    
@@ -194,39 +190,40 @@ $table_cols = 9; ?>
               <th class="info col-md-1" data-sortable="true">Admin</th>
               <th class="info col-md-1 text-center">Edit</th>
               <th class="info col-md-1 text-center">Password</th>
-              <th class="info col-md-1 text-center">Delete</th>
+              <th class="info col-md-1 text-center">Delete</th> 
             </tr>
           </thead>
           <tbody>
             <?php while ($row = $sth->fetch()){ ?>
-          <div class="modal fade deluser<?=$row['id']?>"  tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title">Confirmation</h4>
-                </div>
-                <div class="modal-body">
-                  <form class="form" role="form" id="delconfirm<?=$row['id']?>">
-                    <input type="hidden" name="id" value="<?=$row['id']?>">
-                  </form>
-                  <p>Are you sure you want to delete
-                    <?=$row['rname']?>
-                    from
-                    <?=$row['dept']?>
-                    ?</p>
-                </div>
-                <div class="modal-footer">
-                  <div class="alert alert-dimissable alert-success fade" style="display: none;" id="delusersuccess<?=$row['id']?>">User Deleted...Adios!! <a class="btn btn-success refresh" data-target="deluser<?=$row['id']?>" data-dismiss="modal"></a></div>
-                  <div  id="deluserfail<?=$row['id']?>">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary del-user-btn" id="<?=$row['id']?>">Detele user</button>
-                  </div>
+            <div class="modal fade deluser<?=$row['id']?>"  tabindex="-1" role="dialog" aria-hidden="true"> 
+          
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Confirmation</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form" role="form" id="delconfirm<?=$row['id']?>">
+                  <input type="hidden" name="id" value="<?=$row['id']?>">
+                </form>
+                <p>Are you sure you want to delete
+                  <?=$row['rname']?>
+                  from
+                  <?=$row['dept']?>
+                  ?</p>
+              </div>
+              <div class="modal-footer">
+                <div class="alert alert-dimissable alert-success fade" style="display: none;" id="delusersuccess<?=$row['id']?>">User Deleted...Adios!! <a class="btn btn-success refresh" data-target="deluser<?=$row['id']?>" data-dismiss="modal"></a></div>
+                <div  id="deluserfail<?=$row['id']?>">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary del-user-btn" id="<?=$row['id']?>">Detele user</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal fade changepass<?=$row['id']?>" tabindex="-1" role="dialog" aria-hidden="true">
+          </div>
+            <div class="modal fade changepass<?=$row['id']?>" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -355,12 +352,12 @@ $table_cols = 9; ?>
               <th class="info col-md-2" data-sortable="true">Date</th>
               <th class="info col-md-1" data-sortable="true">Priority</th>
               <th class="info col-md-1" data-sortable="true">Status</th>
-              <!--  <th class="info col-md-1">Delete</th>--> 
+             <!--  <th class="info col-md-1">Delete</th>-->
             </tr>
           </thead>
           <tbody>
-            <?php while ($row = $sth->fetch()){ ?>
-          <div class="modal fade deleteticket" id="deltktmodal<?=$row['tkt_id']?>">
+             <?php while ($row = $sth->fetch()){ ?>
+         <div class="modal fade deleteticket" id="deltktmodal<?=$row['tkt_id']?>">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -373,19 +370,19 @@ $table_cols = 9; ?>
                     -
                     <?=$row['tkt_title']?>
                     ?</p>
-                  <form role="form" id="del-tkt-form<?=$row['tkt_id']?>">
+                <form role="form" id="del-tkt-form<?=$row['tkt_id']?>">
                     <input type="hidden" name="id" value="<?=$row['tkt_id']?>">
                   </form>
                 </div>
                 <div class="modal-footer" id="deltkt<?=$row['tkt_id']?>">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-primary" id="delete-tkt-btn">Detele Ticket</button>
-                </div>
+                </div> 
                 <div id="modal-foot-sucess<?=$row['tkt_id']?>">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
           <tr class="">
             <td class="linkable"><a href="edit_ticket.php?id=<?=$row['tkt_id']?>"> </a>
@@ -404,7 +401,7 @@ $table_cols = 9; ?>
             <td><?php $tmpstatus = parse_status($row['tkt_status']);
 			echo $tmpstatus[0];
 			?></td>
-            <!--<td><a class="btn btn-sm btn-block delete-ticket-btn" id="<?=$row['tkt_id']?>"><span class="glyphicon glyphicon-trash"></span></a></td> --> 
+          <!--<td><a class="btn btn-sm btn-block delete-ticket-btn" id="<?=$row['tkt_id']?>"><span class="glyphicon glyphicon-trash"></span></a></td> -->
           </tr>
           <?php  }
  } ?>
@@ -520,29 +517,6 @@ $table_cols = 9; ?>
             			}
                 		});
             	});		
-$(document).ready(function(){
-	 $("#usersuccess").hide();
-	 $("#userfailure").hide();	
-	 		 
-	$('#username').blur(function(){
-		$.ajax({type: "POST", 
-		url: "assets/php/process.php",
-		data: $('#adduser').serialize(), 
-		success:function(cnt){
-			if(cnt == 0){
-				 $("#usersuccess").show();
-				 $("#userfailure").hide();
-			}else{
-				 $("#userfailure").show();
-				 $("#usersuccess").hide();			 
-			}
-		},
-		error: function(){			
-			alert("An error occurred: " & result.errorMessage);
-			}
-		});		
-	});
-});
         /*$(".delete-ticket-btn").click(function(){
 						var y = this.id;
             	     	$.ajax({

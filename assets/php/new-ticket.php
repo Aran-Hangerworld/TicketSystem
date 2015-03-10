@@ -37,7 +37,7 @@
                   <label for="tkt-desc" class="control-label">Description</label>
                 </div>
                 <div class="col-sm-10">
-                  <textarea id="tkt-desc" name="tkt-desc" class="form-control" rows="3" id="desc"></textarea>
+                  <textarea id="tkt-desc" name="tkt-desc" class="form-control" rows="3"></textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -54,7 +54,7 @@
 		      </select>
                 </div>
               </div>
-              <input hidden="ownerid" value="<?=$_SESSION['name']?>"/>
+              <input type="hidden" name="ownerid" value="<?=$_SESSION['uid']?>"/>
             </form>
           </div>
           <div class="modal-footer">

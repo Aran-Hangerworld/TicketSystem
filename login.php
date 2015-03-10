@@ -22,7 +22,8 @@ include 'assets/php/PDO.php';
 		if($row = $sth->fetch()){
 			if($row['cnt'] == 1){
 			//create a session to store user data
-			$_SESSION['user'] = $row['$username'];
+			$_SESSION['uid'] = $row['id'];
+			$_SESSION['user'] = $row['username'];
 			$_SESSION['name'] = $row['rname'];
 			$_SESSION['email'] = $row['email'];
 			$_SESSION['dept'] = $row['dname'];
@@ -36,6 +37,7 @@ include 'assets/php/PDO.php';
 			$today = date("Y-n-j"); 	
 			$sth->bindparam(':lastloggedin', $today , PDO::PARAM_STR);
 			$sth->execute();
+			header('Location: index.php');
 			?>          
    <?php include 'assets/php/header.php'; ?>
    <body>

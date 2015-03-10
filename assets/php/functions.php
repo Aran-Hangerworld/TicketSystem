@@ -3,12 +3,10 @@
 function CallAPI($method, $url, $data = false)
 {
     $curl = curl_init();
-
     switch ($method)
     {
         case "POST":
             curl_setopt($curl, CURLOPT_POST, 1);
-
             if ($data)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
             break;
@@ -34,9 +32,9 @@ function CallAPI($method, $url, $data = false)
     return $result;
 }
 
-function SendSTMP(){
+function SENDSMTP($to,$sub,$msg,$headers){
 $msg = wordwrap($msg,70);
-mail($to,$sub,$msg);
+mail($to,$sub,$msg,$headers);
 }
 
 function reverse_date($mydate){

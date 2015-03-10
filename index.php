@@ -34,7 +34,7 @@
            <?php 
 			if(isset($_SESSION['name'])){ 
 				$sth = $db->prepare('CALL GetResolved(?,?,?)');
-				$status = "2";
+				$status = "3";
 				$dept = $_SESSION['dept'];
 				$sth->bindparam(1, $status, PDO::PARAM_INT);
 				$sth->bindparam(2, $dept, PDO::PARAM_INT);
@@ -88,14 +88,9 @@
             
 			echo "<div class=\"alert alert-warning text-center\"><p>Please log in to view or create tickets</p><a href=\"login.php\" class=\"btn btn-warning\"><span class=\"glyphicon glyphicon-log-in\">&nbsp;</span>Login in</a></div>";
 		} else { ?>
-            <div class="fixed-table-toolbar">
-              <a href="#" class="active btn btn-primary pull-left" style="margin-top:10px"
-              data-toggle="modal" data-target="#form-content" id="new-ticket-btn"><span class="glyphicon glyphicon-pencil"></span> New Ticket</a>      
-              <div class="btn-group btn-group-sm columns columns-right pull-right" style="margin: 10px;">
-                <div class="pull-right search">
-                  <input class="form-control" type="text" placeholder="Search">
-                </div>
-              </div>
+            <div class="fixed-table-toolbar">        <div style="position: relative; top:30px; left:175px; z-index:1" z-index="1"><a class="active btn btn-primary pull-left" style="margin-top:10px;"
+              data-toggle="modal" data-target="#form-content" id="new-ticket-btn"><span class="glyphicon glyphicon-pencil"></span> New Ticket</a> </div>
+                   
               <table class="table table-hover table-striped" style="" data-search="true"
               data-select-item-name="toolbar1" id="tickets">            
                 <thead>
@@ -159,15 +154,20 @@
     </script>
     <script>
 	 $(document).ready(function(){
+   	     $('#tickets').dataTable({
+			 "iDisplayLength": 25	
+		});
 		 $("#submit").click(function(){
 	         $.ajax({
     		 type: "POST",
 			 url: "assets/php/process.php",
 			 data: $('form.form-horizontal').serialize(),	
     	     success: function(){
+				 
      		    $("#thanks").show();
 				$("#modal-buttons").hide();
         		$("#success-buttons").show();
+				location.reload();
          	},
 			 error: function(){
 				
@@ -180,6 +180,9 @@
         if(href) {
             window.location = href;
         }
+    });
+	$('#tickets tr').hover(function() {
+        $(this).css('cursor','pointer');
     });
 	 
 	 });
@@ -211,6 +214,7 @@
 			location.reload();
 		});
 		$('#continuebtn').click(function(){
+
 			$('#login').modal('hide');
 			$('#dept').val(0);
 			$('#tkt-title').val('');
@@ -222,13 +226,6 @@
 			
 		});
 	 });
-</script>
-<script type="text/javascript">
-    $(window).load(function(){
-        $('#login').modal('show');
-
-		
-    });
 </script>
   </body>
 
