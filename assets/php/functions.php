@@ -97,12 +97,12 @@ function parse_status($status_input){
 			$statusclr = "success";
 			break;
 		case 4:
-			$statustxt = "Cancelled";
+			$statustxt = "On-Hold";
 			$statusclr = "danger";
 			break;
 		case 5:
-			$statustxt = "On Hold";
-			$statusclr = "danger";
+			$statustxt = "Cancelled";
+			$statusclr = "warning";
 			break;	
 	}	
 		return array($statustxt, $statusclr);
