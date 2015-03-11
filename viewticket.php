@@ -152,7 +152,7 @@ $db = null; ?>
 		url: "assets/php/updateticketstatus.php",
 		data: $('#tools').serialize(),	
     	success: function(){
-     		    $("#updategroup").hide();
+     		    $("#updategroup").hide(); 
 				$("#updategroupsuccess").show();
 				location.reload();
 		},
