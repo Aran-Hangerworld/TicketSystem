@@ -2,6 +2,7 @@
 	//Start the session in here!
 	session_start();
 	$isadmin = $_SESSION['isadmin'];
+	$ownerid = $_SESSION['uid'];
 	if($isadmin){$isadminstr = "1";} else {$isadminstr = "0";}
 	include 'assets/php/functions.php'; 
 	include 'assets/php/PDO.php'; 
@@ -108,10 +109,11 @@
                   </tr>
                 </thead>
                 <tbody>
-	<?php $sth = $db->prepare('CALL GetOpenTickets(?,?)');
+	<?php $sth = $db->prepare('CALL GetOpenTickets(?,?,?)');
 	$department = $_SESSION['deptid'];
 	$sth->bindparam(1, $department, PDO::PARAM_STR);
 	$sth->bindparam(2, $isadminstr, PDO::PARAM_INT);
+	$sth->bindparam(3, $ownerid, PDO::PARAM_STR);
 	$sth->execute();
 	while ($row = $sth->fetch()){
 	 ?>               
